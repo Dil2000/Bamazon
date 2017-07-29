@@ -8,21 +8,24 @@ Major component of this project are - MySQL Database called `bamazon`, Javascrip
 
 Identify the user mode - Customer View or the Manager View
 
-#### if its the customer then ####
+#### If its the customer then #### :information_desk_person:
 
-	![Image of CustomerView](/images/cus1.png)	
+	![GitHub Logo](/images/cus1.png)
+    Format: ![Alt Text](url)
 
     * ask the ID of the product they would like to buy.
     * ask how many units of the product they would like to buy.
 
-	![Image of CustomerView](/images/cus2.png)
+	![GitHub Logo](/images/cus2.png)
+    Format: ![Alt Text](url)
 
 After entering those details system checks for the product availability and if its avaialble calculate the final cost and remove the    products from the inventory.
 	
-	![Image of CustomerView](/images/cus3.png)
+	![GitHub Logo](/images/cus3.png)
+    Format: ![Alt Text](url)
 
     
-#### if its the Manager View ####
+#### If its the Manager View #### :japanese_goblin:
     * View Products for Sale
     * View Low Inventory
     * Add to Inventory
