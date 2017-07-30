@@ -146,7 +146,7 @@ function updateDatabse(itemId,newQuantity){
 		], function(err,res){
 			if (err) throw err;
 			console.log(" Qunatity added to the inventory successfully");
-			console.log("----------------------------------------------\n\n");
+			console.log("---------------------------------------------\n\n");
 			promptOptions();
 	});
 };
@@ -219,6 +219,8 @@ function addToInventory(product_name,department_name,quantity,price){
     function(err, res) {
     	if (err) throw err;
       	console.log(res.affectedRows + " New Product Added !\n");
+      	console.log(" Item purchased successfully");
+		console.log("------------------------------\n\n")
       	DisplayAll();
     });
 };
