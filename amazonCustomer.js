@@ -18,11 +18,27 @@ connection.connect(function(err){
 
 var allDepartments = [];
 
-
 // Constructor to identify Highest grossing department
 var Departments = function(name, numBuys) {	
     this.departmentName = name
-    this.noOfBuys =numBuys;
+    this.noOfBuys = numBuys;
+    this.printInfo = function(){
+    	//console.log("Print : " + this.departmentName + " " + this.noOfBuys +"\n");
+    }
+    this.updateDep = function(name,noOfBuys){
+	    if (this.departmentName === name) {
+	        if(allDepartments.departmentName === name){
+	    	    allDepartments.noOfBuys = 1 + this.noOfBuys;
+	    	    (allDepartments.noOfBuys).push(1 + parseInt(this.noOfBuys));
+		        //console.log(this.noOfBuys + "  " + this.departmentName);
+		    }
+	    }	   
+    }
+    this.findHigestGrossing = function(){
+    	var HGDep = "";
+    	var HiSales = 0;
+    	//console.log(" HGDep + " " + HiSales);
+    } 
 }
 
 // First function to display the values in the console
@@ -34,14 +50,11 @@ function DisplayAll(){
 		"\n -------------------------------------------------------------------------------\n")
 		for (var i = 0 ; i < res.length; i++){
 			console.log("  " + res[i].item_id + "\t| " + res[i].department_name + "\t| $ " + res[i].price 
-				+ " \t| " + res[i].product_name);
-			// Constructor to identify the hightest grossing department
-			var newDep = new Departments(res[i].department_name, 0);
-			allDepartments.push(newDep);
+				+ " \t| " + res[i].product_name);			
 		}
-		console.log("\n\n");		
+		console.log("\n\n");	
+		promptUser();	
     });
-	promptUser();
 }
 
 // Identify the user - Customer or Manager
@@ -112,21 +125,28 @@ function productAvailability(itemId,quantityEntered){
 		for (var i = 0 ; i < res.length; i++){				
 			noOfProducts = res[i].stock_quantity;
 			unitPrice = res[i].price;
-			department = res[i].department_name;
+			department = res[i].department_name;			
 		}
 		
 		if (noOfProducts >= quantityEntered){
 			
 			var totalPrice = unitPrice * quantityEntered;
 			console.log("\n Total cost is : " + totalPrice.toFixed(2));
-			var Qunatityleft = noOfProducts - quantityEntered;
-			
+			var Qunatityleft = noOfProducts - quantityEntered;		
 			updateDatabse(itemId,Qunatityleft);
+
+			console.log(" Item purchased successfully");
+			console.log("------------------------------\n\n");
 		    
+		    var findGrossingDep = new Departments(department,1);
+			findGrossingDep.updateDep(department,1);
+			findGrossingDep.findHigestGrossing();
+			findGrossingDep.printInfo();
+		
 		} else {
 			console.log(" Insufficient quantity\n\n");
-			promptUser();
 		}
+		promptUser();
 
 	});
 }
@@ -141,10 +161,19 @@ function updateDatabse(itemId,QunatityLeft){
 		}
 		], function(err,res){
 			if (err) throw err;
-			console.log(" Item purchased successfully");
-			console.log("------------------------------\n\n")
 	});
 }
 
+// Find departments
+function findDepartments(){
+	connection.query("SELECT department_name FROM products GROUP BY department_name",
+	function(err,res){
+		if (err) throw err;
+		for (var i = 0 ; i < res.length ; i++){
+			var newDep = new Departments(res[i].department_name, 0);
+			allDepartments.push(newDep);
+		}
+	});	
+}
 
-
+findDepartments();
