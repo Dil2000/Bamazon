@@ -57,7 +57,7 @@ function printInConsole(res){
 			+ res[i].price + "\t| " + res[i].stock_quantity + " \t| " + res[i].product_name);
 	}
 	console.log("\n");	
-	//promptOptions();
+	promptOptions();
 }
 
 //View Products for Sale
